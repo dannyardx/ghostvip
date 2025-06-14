@@ -1,0 +1,16 @@
+[build]
+  publish = "/"
+
+[forms]
+  [forms."contact-ghotsvip"]
+    success_url = "/"
+    spam_threshold = 0.8
+
+[forms."contact-ghotsvip".fields]
+  name = { type = "text", required = true }
+  email = { type = "email", required = true }
+  message = { type = "text", required = true }
+  bot-field = { type = "text" }
+
+[build.processing]
+  skip_processing = false

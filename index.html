@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhotsVIP - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hidden { display: none; }
+    </style>
+</head>
+<body>    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <linearGradient id="contactGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color: var(--grad-1)"/>
+                <stop offset="100%" style="stop-color: var(--grad-2)"/>
+            </linearGradient>
+        </defs>
+    </svg>
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="ghost-loader">
+                <div class="ghost-body">
+                    <div class="ghost-eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="ghost-bottom">
+                        <div class="ghost-tail"></div>
+                        <div class="ghost-tail"></div>
+                        <div class="ghost-tail"></div>
+                        <div class="ghost-tail"></div>
+                        <div class="ghost-tail"></div>
+                    </div>
+                </div>
+                <div class="ghost-shadow"></div>
+            </div>
+            <div class="loading-text">
+                <span>G</span>
+                <span>h</span>
+                <span>o</span>
+                <span>s</span>
+                <span>t</span>
+                <span>V</span>
+                <span>I</span>
+                <span>P</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+
+        <h1 class="header-name" data-lang-key="header_title">
+            <span class="text-animation">
+                <span class="text-cycle"></span>
+            </span>
+        </h1>
+        
+        <button id="openContactModalBtn" class="contact-overlay-btn">
+            <span class="contact-text">Contact Me</span>
+        </button>
+    </div>
+    
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Contact Form</h2>
+            </div>
+
+            <div class="modal-content">
+                <!-- Left Column: IP Only -->
+                <div class="security-section">
+                    <div class="ip-card">
+                        <div class="ip-content">
+                            <div class="ip-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                            <h3>Your IP Address</h3>
+                            <div class="ip-display">
+                                <div id="ipAddress" class="masked">Loading...</div>
+                            </div>
+                            <button id="toggleIP" class="ip-toggle" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                <span>Show IP</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Contact Form -->
+                <div class="contact-section">
+                    <form name="contact-ghotsvip" class="contact-form" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                        <input type="hidden" name="form-name" value="contact-ghotsvip" />
+                        <p class="hidden">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
+                        <input type="hidden" name="subject" value="New Contact Form Submission from GhotsVIP" />
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your name" oninvalid="this.setCustomValidity('Please fill in your name')" oninput="this.setCustomValidity('')">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email address" oninvalid="this.setCustomValidity('Please enter a valid email address')" oninput="this.setCustomValidity('')">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required placeholder="Type your message here" oninvalid="this.setCustomValidity('Please enter your message')" oninput="this.setCustomValidity('')"></textarea>
+                        </div>
+                        <button type="submit" class="btn-shiny">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18l9-2zm0 0v-8" />
+                            </svg>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                    <div id="successMessage" class="form-success-message" style="display: none;">
+                        Message sent successfully!
+                    </div>
+                    <div id="errorMessage" class="form-error-message" style="display: none;">
+                        Failed to send message. Please try again.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app-main.js"></script>
+</body>
+</html>

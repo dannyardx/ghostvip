@@ -1,0 +1,5 @@
+# File: _redirects
+
+/filewinrarupdate     /dl-winrar.html     200
+/file7zip             /dl-7zip.html       200
+/quantvupdate         /dl-quantv.html     200
