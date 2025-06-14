@@ -55,6 +55,10 @@
             80% { width: 210px; }
             100% { width: 240px; }
         }
+        @keyframes quantvLogFadeIn {
+            from { opacity:0; transform:translateY(32px); }
+            to { opacity:1; transform:translateY(0); }
+        }
     </style>
 </head>
 <body style="background: var(--bg-color); color: var(--text-color); min-height: 100vh;">
@@ -73,23 +77,79 @@
     <div class="quantv-center" style="opacity:0; transition:opacity .4s;">
         <div class="file-card">
             <div style="display: flex; flex-direction: column; align-items: center;">
-                <img src="https://i.imgur.com/8Q2Qw1F.png" alt="QuantV Logo" style="width: 80px; margin-bottom: 18px; filter: drop-shadow(0 2px 16px var(--grad-1));">
-                <h2 style="font-size:2.2rem; font-weight:700; margin-bottom:8px; background: linear-gradient(90deg, var(--grad-1), var(--grad-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">QuantV Graphics Mod</h2>
-                <span class="version" style="color:var(--grad-2); font-weight:600; margin-bottom:18px;">v3.0.0 (2025)</span>
-                <p style="color:var(--text-secondary); font-size:1.1rem; text-align:center; margin-bottom:28px;">Upgrade tampilan GTA V kamu dengan QuantV! Realistis, efek cuaca baru, dan visual yang memukau.</p>
+                <div style="width:180px;height:54px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:linear-gradient(90deg,var(--grad-1),var(--grad-2));border-radius:14px;box-shadow:0 2px 16px var(--grad-1);font-size:2.1rem;font-weight:700;color:#fff;letter-spacing:1.5px;">QuantV</div>
+                <h2 style="font-size:2.2rem; font-weight:700; margin-bottom:8px; background: linear-gradient(90deg, var(--grad-1), var(--grad-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">QuantV FiveM Update</h2>
+                <span class="version" style="color:var(--grad-2); font-weight:600; margin-bottom:18px;">09/06 (2025) Latest • Free Download</span>
+                <p style="color:var(--text-secondary); font-size:1.1rem; text-align:center; margin-bottom:28px;">Download QuantV for free and upgrade your GTA V visuals! Realistic, new weather effects, and stunning graphics.</p>
                 <div style="display:flex; gap:18px; margin-bottom:18px;">
                     <a href="/quantvdownload" class="btn-shiny" style="text-decoration:none;display:flex;align-items:center;gap:8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:22px;height:22px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 4v12"/></svg>
                         Download QuantV
                     </a>
-                    <a href="LINK_VIRUSTOTAL_ANDA_UNTUK_QUANTV" target="_blank" rel="noopener noreferrer" class="btn-shiny" style="background:transparent; border:1.5px solid var(--grad-1); color:var(--grad-1);">VirusTotal</a>
+                    <a href="/quantvvirustotal" target="_blank" rel="noopener noreferrer" class="btn-shiny" style="background:transparent; border:1.5px solid var(--grad-1); color:var(--grad-1); text-decoration:none;">VirusTotal</a>
                 </div>
-                <div style="margin-top:18px; color:#ff4757; font-size:1rem; text-align:center;">* Untuk update & support terbaru, join Discord.<br>* Selalu scan file sebelum digunakan.</div>
             </div>
         </div>
     </div>
+    <div id="quantv-log-popup" style="position:fixed;bottom:32px;right:32px;z-index:10000;max-width:360px;min-width:240px;background:rgba(30,32,40,0.82);backdrop-filter:blur(10px);border-radius:18px;box-shadow:0 6px 32px rgba(0,0,0,0.22);padding:0 0 0 0;display:none;animation:quantvLogFadeIn .7s; border:2px solid; border-image:linear-gradient(120deg,var(--grad-1),var(--grad-2)) 1; overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:10px;padding:18px 22px 10px 18px;background:linear-gradient(90deg,rgba(40,42,54,0.92),rgba(30,32,40,0.82));border-bottom:1px solid rgba(255,255,255,0.07);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:var(--grad-1);flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/></svg>
+            <span style="font-weight:700;font-size:1.08rem;letter-spacing:0.01em;flex:1;">[Mod] QuantV [09/06/2025] - Update Log</span>
+        </div>
+        <div style="font-size:1.01rem;line-height:1.7;padding:16px 22px 18px 22px;color:var(--text-color);">
+            <b>Full stability update:</b> Please reinstall both "Part1" and "Part2" for the best experience.<br><br>
+            <b>Cloud system overhaul:</b> Sharper reflections, smoother animations, and new intensity controls for high-altitude clouds.<br><br>
+            <b>Vehicle paint:</b> Now shines more naturally under sunlight.<br>
+            <b>Lens flare:</b> Brand new 'LightStreak V2' (inspired by trailer #2) and improved 'SixLens' effect.<br><br>
+            <b>Lighting:</b> Enhanced godrays and volumetric lighting for a more immersive atmosphere. Optional Light Shafts effect is back!<br><br>
+            <b>Other:</b> Raindrop effects on vehicles refined, plus various minor bug fixes.
+        </div>
+    </div>
+    <button id="show-quantv-log" style="position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--surface-color);color:var(--grad-1);border:2px solid var(--grad-1);border-radius:50px;padding:10px 22px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.13);cursor:pointer;transition:background .18s, color .18s;display:none;align-items:center;gap:8px;font-size:1.05rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/></svg>
+        Update Log
+    </button>
+    <a href="https://www.patreon.com/QuantV" target="_blank" rel="noopener noreferrer" id="quantv-support-btn" style="position:fixed;bottom:32px;left:32px;z-index:9999;background:var(--surface-color);color:var(--grad-2);border:2px solid var(--grad-2);border-radius:50px;padding:10px 22px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.13);cursor:pointer;transition:background .18s, color .18s;display:none;align-items:center;gap:8px;font-size:1.05rem;text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-1.414 1.414A9 9 0 105.636 18.364l1.414-1.414"/></svg>
+        Support Original Dev
+    </a>
+    <button id="show-readme-btn" style="position:fixed;top:32px;left:32px;z-index:9999;background:var(--surface-color);color:var(--grad-1);border:2px solid var(--grad-1);border-radius:50px;padding:10px 22px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.13);cursor:pointer;transition:background .18s, color .18s;display:none;align-items:center;gap:8px;font-size:1.05rem;text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v16H4z"/></svg>
+        README
+    </button>
+    <a href="/" id="back-to-mainpage-btn" style="position:fixed;top:32px;right:32px;z-index:9999;background:var(--surface-color);color:var(--grad-2);border:2px solid var(--grad-2);border-radius:50px;padding:10px 22px;font-weight:600;box-shadow:0 2px 12px rgba(0,0,0,0.13);cursor:pointer;transition:background .18s, color .18s;display:none;align-items:center;gap:8px;font-size:1.05rem;text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="margin-right:6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 12l6-6M3 12l6 6"/></svg>
+        Mainpage
+    </a>
+    <div id="ghostvip-readme-popup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10001;background:rgba(18,18,18,0.92);backdrop-filter:blur(8px);overflow:auto;animation:quantvLogFadeIn .7s;">
+        <div id="ghostvip-readme-card" style="max-width:900px;width:90vw;max-height:80vh;overflow-y:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:38px 32px 28px 32px;background:rgba(30,32,40,0.98);border-radius:22px;box-shadow:0 8px 40px rgba(0,0,0,0.22);color:var(--text-color);font-size:1.13rem;line-height:1.8;">
+            <div style="font-weight:700;font-size:1.28rem;margin-bottom:16px;background:linear-gradient(90deg,var(--grad-1),var(--grad-2));-webkit-background-clip:text;background-clip:text;color:transparent;">About GhostVIP</div>
+            <div style="margin-bottom:14px;">GhostVIP is a site that shares paid (pirated) files for free. Our goal is to give everyone access to premium content without cost, so you can try and use files that are normally behind a paywall.</div>
+            <div style="margin-bottom:14px;">We update our collection regularly with the latest paid files, usually a week or more after the newest release. All files are provided as-is, and if a file is flagged by VirusTotal, it comes from the original source, not from GhostVIP.</div>
+            <div style="margin-bottom:14px;">We strongly encourage you to support the original developers if you find their work valuable. Piracy is illegal—please use these files responsibly and consider purchasing the originals to support the creators.</div>
+            <div style="margin-bottom:14px;">By using GhostVIP, you accept full responsibility for how you use these files. We do not host, modify, or take any responsibility for the files and their usage. Download and use at your own risk, and always respect copyright laws.</div>
+            <div style="font-size:1.01rem;margin-top:18px;opacity:0.85;">
+            <b>Disclaimer:</b>
+            <ul style="margin:8px 0 0 18px;padding:0 0 0 0.5em;list-style:disc inside;font-size:1rem;">
+                <li>These are pirated files, shared for free access only.</li>
+                <li>Support the original creators if you find value in their work.</li>
+                <li>GhostVIP is not responsible for your use of these files.</li>
+                <li>Use at your own risk and always respect copyright laws.</li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    <style>
+    @keyframes quantvLogFadeIn {
+        from { opacity:0; transform:translateY(32px) scale(0.98); }
+        to { opacity:1; transform:translateY(0) scale(1); }
+    }
+    #quantv-log-popup button#close-quantv-log:hover {
+        background:rgba(255,255,255,0.08);
+        color:var(--grad-2);
+    }
+    </style>
     <script>
-    // Loading bar: infinite anim, hide after anim, show content
     window.addEventListener('DOMContentLoaded', function() {
         var bar = document.getElementById('quantvBarAnim');
         bar.style.width = '0';
@@ -106,10 +166,50 @@
             setTimeout(function() {
                 document.getElementById('quantvLoading').style.display = 'none';
                 document.querySelector('.quantv-center').style.opacity = 1;
+                var supportBtn = document.getElementById('quantv-support-btn');
+                if(supportBtn) supportBtn.style.display = 'flex';
+                var readmeBtn = document.getElementById('show-readme-btn');
+                if(readmeBtn) readmeBtn.style.display = 'flex';
+                var mainBtn = document.getElementById('back-to-mainpage-btn');
+                if(mainBtn) mainBtn.style.display = 'flex';
+                setTimeout(function() {
+                    var log = document.getElementById('quantv-log-popup');
+                    if(log) log.style.display = 'block';
+                }, 400);
             }, 400);
         }, 1800);
     });
-    // Blokir klik kiri/kanan kecuali pada tombol, blokir inspect
+    window.addEventListener('DOMContentLoaded', function() {
+        var closeBtn = document.getElementById('close-quantv-log');
+        if(closeBtn) closeBtn.onclick = function() {
+            document.getElementById('quantv-log-popup').style.display = 'none';
+            document.getElementById('show-quantv-log').style.display = 'flex';
+        };
+        var showBtn = document.getElementById('show-quantv-log');
+        if(showBtn) showBtn.onclick = function() {
+            document.getElementById('quantv-log-popup').style.display = 'block';
+            showBtn.style.display = 'none';
+        };
+        document.addEventListener('mousedown', function(e) {
+            var log = document.getElementById('quantv-log-popup');
+            var showBtn = document.getElementById('show-quantv-log');
+            if (log && log.style.display === 'block') {
+                if (!log.contains(e.target) && (!showBtn || e.target !== showBtn)) {
+                    log.style.display = 'none';
+                    if(showBtn) showBtn.style.display = 'flex';
+                }
+            }
+        });
+    });
+    document.getElementById('show-readme-btn').onclick = function() {
+        document.getElementById('ghostvip-readme-popup').style.display = 'block';
+    };
+    document.getElementById('ghostvip-readme-popup').addEventListener('mousedown', function(e) {
+        var card = document.getElementById('ghostvip-readme-card');
+        if (!card.contains(e.target)) {
+            this.style.display = 'none';
+        }
+    });
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
@@ -131,7 +231,6 @@
             e.stopPropagation();
         }
     });
-    // Cegah drag link pada tombol btn-shiny
     document.querySelectorAll('a.btn-shiny').forEach(function(btn) {
         btn.addEventListener('dragstart', function(e) {
             e.preventDefault();

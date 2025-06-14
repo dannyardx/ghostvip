@@ -912,3 +912,41 @@ body {
     line-height: 1.7;
     max-width: 500px;
 }
+
+#quantv-support-btn, #show-quantv-log {
+    background: var(--surface-color);
+    color: var(--grad-1);
+    border: 2px solid var(--grad-1);
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+    cursor: pointer;
+    transition: background .18s, color .18s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.05rem;
+    text-decoration: none;
+}
+#quantv-support-btn:hover, #show-quantv-log:hover {
+    background: linear-gradient(135deg, var(--grad-1), var(--grad-2));
+    color: #fff;
+    border-color: var(--grad-2);
+}
+#quantv-support-btn svg, #show-quantv-log svg {
+    margin-right: 6px;
+    transition: transform 0.3s;
+}
+#quantv-support-btn:hover svg, #show-quantv-log:hover svg {
+    transform: translateX(3px);
+}
+@media (max-width: 600px) {
+    #quantv-support-btn, #show-quantv-log {
+        padding: 8px 14px;
+        font-size: 0.95rem;
+        bottom: 18px !important;
+        left: 12px !important;
+        right: 12px !important;
+    }
+}
