@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         elements.contactModal.style.display = 'flex';
         setTimeout(() => {
             elements.contactModal.classList.add('active');
+            updateSubmissionCountdown(); // update countdown saat modal dibuka
         }, 10);
     });
 
@@ -148,9 +149,50 @@ document.addEventListener('DOMContentLoaded', async () => {
         localStorage.setItem('contactFormSubmissions', (getSubmissionCount() + 1).toString());
     }
 
+    function canSubmitAgain() {
+        const last = localStorage.getItem('contactFormLastSubmit');
+        if (!last) return true;
+        const lastTime = parseInt(last, 10);
+        const now = Date.now();
+        return (now - lastTime) > 86400000; // 24 jam
+    }
+
+    function getLastSubmitTime() {
+        const last = localStorage.getItem('contactFormLastSubmit');
+        return last ? parseInt(last, 10) : null;
+    }
+
+    function updateSubmissionCountdown() {
+        const countdownEl = document.getElementById('submissionCountdown');
+        const last = getLastSubmitTime();
+        if (!last) {
+            countdownEl.style.display = 'none';
+            return;
+        }
+        const now = Date.now();
+        const diff = 86400000 - (now - last);
+        if (diff <= 0) {
+            countdownEl.style.display = 'none';
+            return;
+        }
+        countdownEl.style.display = 'block';
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        countdownEl.textContent = `You can submit again in ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+    }
+
     const contactForm = document.querySelector('.contact-form');
     contactForm.addEventListener('submit', function(event) {
-        if (getSubmissionCount() >= 10) {
+        if (!canSubmitAgain()) {
+            event.preventDefault();
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').textContent = 'You can only submit once every 24 hours.';
+            document.getElementById('errorMessage').style.display = 'block';
+            updateSubmissionCountdown(); // update countdown saat gagal submit
+            return;
+        }
+        if (getSubmissionCount() >= 1) {
             event.preventDefault();
             document.getElementById('successMessage').style.display = 'none';
             document.getElementById('errorMessage').textContent = 'You have reached the submission limit for this device.';
