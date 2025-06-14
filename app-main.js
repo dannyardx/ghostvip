@@ -20,18 +20,18 @@ document.addEventListener('DOMContentLoaded', async () => {    // === DOM ELEMEN
     };// === LOADING SCREEN FUNCTIONS ===
     const hideLoadingScreen = () => {
         if (!elements.loadingScreen || !elements.textAnimation) return;
-        
         elements.loadingScreen.classList.add('fade-out');
-        
         setTimeout(() => {
             elements.loadingScreen.style.display = 'none';
             state.isLoading = false;
-            
             setTimeout(() => {
                 elements.textAnimation.classList.add('start-animation');
             }, 100);
         }, 500);
     };
+
+    // Tampilkan loading screen selama 5 detik
+    setTimeout(hideLoadingScreen, 5000);
 
     // === IP ADDRESS FUNCTIONS ===
     const fetchIPAddress = async () => {
@@ -81,37 +81,48 @@ document.addEventListener('DOMContentLoaded', async () => {    // === DOM ELEMEN
         updateIPDisplay();
     });
 
-    elements.contactForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+    // Limit submissions per IP using localStorage as a simple workaround (not secure, but works for static site)
+function getSubmissionCount() {
+    return parseInt(localStorage.getItem('contactFormSubmissions') || '0', 10);
+}
+function incrementSubmissionCount() {
+    localStorage.setItem('contactFormSubmissions', (getSubmissionCount() + 1).toString());
+}
 
-        const form = event.target;
-        const formData = new FormData(form);
+const contactForm = document.querySelector('.contact-form');
+contactForm.addEventListener('submit', function(event) {
+    if (getSubmissionCount() >= 1) {
+        event.preventDefault();
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('errorMessage').textContent = 'You have reached the submission limit for this device.';
+        document.getElementById('errorMessage').style.display = 'block';
+        return;
+    }
+    event.preventDefault(); // Prevent default form submission
 
-        fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
-        })
-        .then(() => {
-            document.getElementById('successMessage').style.display = 'block';
-            document.getElementById('errorMessage').style.display = 'none';
-            form.reset(); // Reset the form fields
+    const form = event.target;
+    const formData = new FormData(form);
 
-            // Close the modal and return to the main page
-            document.getElementById('contactModal').classList.remove('active');
-            document.querySelector('.main-container').classList.remove('blur');
-
-            // Show notification on the main page
-            showNotification('Message sent successfully!', 'success');
-        })
-        .catch(() => {
+    fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+    })
+    .then(() => {
+        incrementSubmissionCount();
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+        form.reset(); // Reset the form fields
+        // Sembunyikan pesan sukses setelah 5 detik
+        setTimeout(() => {
             document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'block';
-
-            // Show notification on the main page
-            showNotification('Failed to send message. Please try again.', 'error');
-        });
-    });    // === INITIALIZE ===
+        }, 5000);
+    })
+    .catch(() => {
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'block';
+    });
+});    // === INITIALIZE ===
     const init = async () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         hideLoadingScreen();
@@ -120,17 +131,91 @@ document.addEventListener('DOMContentLoaded', async () => {    // === DOM ELEMEN
     };
 
     init();
+});
 
-    function showNotification(message, type) {
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.textContent = message;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.classList.add('fade-out');
-            notification.addEventListener('transitionend', () => notification.remove());
-        }, 3000);
+// Disable right click and inspect element
+window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+window.addEventListener('keydown', function(e) {
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+        (e.ctrlKey && e.key === 'U')
+    ) {
+        e.preventDefault();
+        e.stopPropagation();
     }
 });
+
+// Disable all mouse clicks (left, right, middle) KECUALI tombol kontak dan input/textarea dalam modal
+function isAllowedClickTarget(target) {
+    // Izinkan klik pada tombol kontak dan input/textarea di dalam modal kontak
+    return (
+        (target.closest && target.closest('#openContactModalBtn')) ||
+        (target.closest && target.closest('#contactModal') && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA'))
+    );
+}
+window.addEventListener('mousedown', function(e) {
+    if (!isAllowedClickTarget(e.target)) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}, true);
+window.addEventListener('mouseup', function(e) {
+    if (!isAllowedClickTarget(e.target)) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}, true);
+window.addEventListener('click', function(e) {
+    if (!isAllowedClickTarget(e.target)) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}, true);
+
+// Izinkan context menu (copy/paste) di input/textarea dalam modal
+window.addEventListener('contextmenu', function(e) {
+    if (e.target.closest && e.target.closest('#contactModal') && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+        // allow context menu
+        return;
+    }
+    e.preventDefault();
+});
+
+// Fitur translate: arahkan ke Google Translate di tab baru
+const translateBtn = document.getElementById('translateBtn');
+const messageTextarea = document.getElementById('message');
+// Fallback: jika API gagal, tampilkan hasil dummy agar user tahu tombol bekerja
+if (translateBtn && messageTextarea) {
+    translateBtn.addEventListener('click', async function() {
+        const text = messageTextarea.value.trim();
+        if (!text) return;
+        translateBtn.disabled = true;
+        translateBtn.querySelector('span').textContent = 'Translating...';
+        try {
+            // Ganti URL di bawah dengan endpoint API yang Anda deploy
+            const res = await fetch('https://free-translate-api.fly.dev/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    q: text,
+                    source: 'auto',
+                    target: 'en'
+                })
+            });
+            const data = await res.json();
+            if (data.translatedText) {
+                messageTextarea.value = data.translatedText;
+            } else {
+                alert('Failed to translate: ' + (data.error || 'Unknown error'));
+            }
+        } catch (e) {
+            alert('Failed to translate: ' + e.message);
+        }
+        translateBtn.disabled = false;
+        translateBtn.querySelector('span').textContent = 'Translate';
+    });
+}

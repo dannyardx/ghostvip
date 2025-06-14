@@ -844,28 +844,44 @@ body {
 /* Notification Styles */
 .notification {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 8px;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 12px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     color: white;
     z-index: 3000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     opacity: 1;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .notification.success {
-    background-color: #2ed573;
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    border: 1px solid rgba(76, 175, 80, 0.5);
 }
 
 .notification.error {
-    background-color: #ff4757;
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    border: 1px solid rgba(244, 67, 54, 0.5);
+}
+
+.notification svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.notification.show {
+    transform: translateX(-50%) translateY(120px);
 }
 
 .notification.fade-out {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(-50%) translateY(-100px);
 }

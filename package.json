@@ -1,0 +1,9 @@
+{
+  "name": "share-file",
+  "version": "1.0.0",
+  "description": "Share file web with Netlify functions",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
