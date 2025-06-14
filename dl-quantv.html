@@ -3,32 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="download_page_title">Download Page</title>
+    <title>QuantV Download</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .quantv-center {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color);
+        }
+        .file-card {
+            background: var(--surface-color);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            max-width: 480px;
+            width: 100%;
+            padding: 40px 32px;
+        }
+        .quantv-loading-outer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity .4s;
+        }
+        .quantv-loading-bar {
+            width: 240px;
+            height: 8px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px var(--grad-2);
+            position:relative;
+        }
+        .quantv-loading-bar-inner {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--grad-1), var(--grad-2));
+            border-radius: 8px;
+            animation: quantvBarAnim 1.2s cubic-bezier(.4,1,.7,1) forwards;
+        }
+        @keyframes quantvBarAnim {
+            0% { width: 0; }
+            80% { width: 210px; }
+            100% { width: 240px; }
+        }
+    </style>
 </head>
-<body>
-    
-    <div class="file-card-container">
-        <div class="file-card">
-            <div class="file-info">                <h2>Latest WinRAR (64-bit)</h2>
-                <span class="version">v7.01</span>
-                <p>Latest version of WinRAR file compression software.</p>
+<body style="background: var(--bg-color); color: var(--text-color); min-height: 100vh;">
+    <div class="quantv-loading-outer" id="quantvLoading">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+            <div style="margin-bottom:2px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:var(--grad-1);filter:drop-shadow(0 2px 8px var(--grad-2));">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 4v12"/>
+                </svg>
             </div>
-            <div class="file-actions">
-                <a href="LINK_DISCORD_ANDA_UNTUK_WINRAR" class="btn btn-download" download>
-                    <span data-lang-key="download_button">Download File</span>
-                </a>
-                <a href="LINK_VIRUSTOTAL_ANDA_UNTUK_WINRAR" target="_blank" rel="noopener noreferrer" class="btn btn-virustotal">
-                    <span data-lang-key="virustotal_button">Check on VirusTotal</span>
-                </a>
+            <div class="quantv-loading-bar" style="position:relative;">
+                <div class="quantv-loading-bar-inner" id="quantvBarAnim"></div>
             </div>
         </div>
     </div>
-
-    <script src="translations.js"></script>
-    <script src="app-secondary.js"></script>
+    <div class="quantv-center" style="opacity:0; transition:opacity .4s;">
+        <div class="file-card">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="https://i.imgur.com/8Q2Qw1F.png" alt="QuantV Logo" style="width: 80px; margin-bottom: 18px; filter: drop-shadow(0 2px 16px var(--grad-1));">
+                <h2 style="font-size:2.2rem; font-weight:700; margin-bottom:8px; background: linear-gradient(90deg, var(--grad-1), var(--grad-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">QuantV Graphics Mod</h2>
+                <span class="version" style="color:var(--grad-2); font-weight:600; margin-bottom:18px;">v3.0.0 (2025)</span>
+                <p style="color:var(--text-secondary); font-size:1.1rem; text-align:center; margin-bottom:28px;">Upgrade tampilan GTA V kamu dengan QuantV! Realistis, efek cuaca baru, dan visual yang memukau.</p>
+                <div style="display:flex; gap:18px; margin-bottom:18px;">
+                    <a href="/.netlify/functions/download-quantv" class="btn-shiny" style="text-decoration:none;display:flex;align-items:center;gap:8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:22px;height:22px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 4v12"/></svg>
+                        Download QuantV
+                    </a>
+                    <a href="LINK_VIRUSTOTAL_ANDA_UNTUK_QUANTV" target="_blank" rel="noopener noreferrer" class="btn-shiny" style="background:transparent; border:1.5px solid var(--grad-1); color:var(--grad-1);">VirusTotal</a>
+                </div>
+                <div style="margin-top:18px; color:#ff4757; font-size:1rem; text-align:center;">* Untuk update & support terbaru, join Discord.<br>* Selalu scan file sebelum digunakan.</div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Loading bar: infinite anim, hide after anim, show content
+    window.addEventListener('DOMContentLoaded', function() {
+        var bar = document.getElementById('quantvBarAnim');
+        bar.style.width = '0';
+        bar.animate([
+            { width: '0', background: 'linear-gradient(90deg, var(--grad-1), var(--grad-2))' },
+            { width: '100%', background: 'linear-gradient(90deg, var(--grad-2), var(--grad-1))' },
+            { width: '0', background: 'linear-gradient(90deg, var(--grad-1), var(--grad-2))' }
+        ], {
+            duration: 1200,
+            iterations: Infinity
+        });
+        setTimeout(function() {
+            document.getElementById('quantvLoading').style.opacity = 0;
+            setTimeout(function() {
+                document.getElementById('quantvLoading').style.display = 'none';
+                document.querySelector('.quantv-center').style.opacity = 1;
+            }, 400);
+        }, 1800);
+    });
+    // Blokir klik kiri/kanan kecuali pada tombol, blokir inspect
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+    document.addEventListener('mousedown', function(e) {
+        if (e.button === 0) {
+            var el = e.target;
+            if (!(el.tagName === 'A' && el.classList.contains('btn-shiny'))) {
+                e.preventDefault();
+            }
+        }
+    });
+    document.addEventListener('keydown', function(e) {
+        if (
+            (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+            (e.ctrlKey && e.key === 'U') ||
+            (e.key === 'F12')
+        ) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+    // Cegah drag link pada tombol btn-shiny
+    document.querySelectorAll('a.btn-shiny').forEach(function(btn) {
+        btn.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+    });
+    </script>
 </body>
 </html>

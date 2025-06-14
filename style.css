@@ -55,7 +55,7 @@ body {
 
 @keyframes textCycle {
     0%, 20% {
-        content: "GhotsVIP";
+        content: "GhostVIP";
         background: linear-gradient(to right, var(--grad-1), var(--grad-2));
         -webkit-background-clip: text;
         background-clip: text;

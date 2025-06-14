@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         elements.contactModal.style.display = 'flex';
         setTimeout(() => {
             elements.contactModal.classList.add('active');
-            updateSubmissionCountdown(); // update countdown saat modal dibuka
+            updateSubmissionCountdown();
         }, 10);
     });
 
@@ -141,13 +141,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         state.isIPHidden = !state.isIPHidden;
         updateIPDisplay();
     });
-
-    function getSubmissionCount() {
-        return parseInt(localStorage.getItem('contactFormSubmissions') || '0', 10);
-    }
-    function incrementSubmissionCount() {
-        localStorage.setItem('contactFormSubmissions', (getSubmissionCount() + 1).toString());
-    }
 
     function canSubmitAgain() {
         const last = localStorage.getItem('contactFormLastSubmit');
@@ -181,6 +174,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const seconds = Math.floor((diff % 60000) / 1000);
         countdownEl.textContent = `You can submit again in ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
     }
+    setInterval(updateSubmissionCountdown, 1000);
+    updateSubmissionCountdown();
 
     const contactForm = document.querySelector('.contact-form');
     contactForm.addEventListener('submit', function(event) {
@@ -189,28 +184,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('successMessage').style.display = 'none';
             document.getElementById('errorMessage').textContent = 'You can only submit once every 24 hours.';
             document.getElementById('errorMessage').style.display = 'block';
-            updateSubmissionCountdown(); // update countdown saat gagal submit
-            return;
-        }
-        if (getSubmissionCount() >= 1) {
-            event.preventDefault();
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').textContent = 'You have reached the submission limit for this device.';
-            document.getElementById('errorMessage').style.display = 'block';
+            updateSubmissionCountdown();
             return;
         }
         event.preventDefault();
-
         const form = event.target;
         const formData = new FormData(form);
-
         fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData).toString()
         })
         .then(() => {
-            incrementSubmissionCount();
+            localStorage.setItem('contactFormLastSubmit', Date.now().toString());
             document.getElementById('successMessage').style.display = 'block';
             document.getElementById('errorMessage').style.display = 'none';
             form.reset();
