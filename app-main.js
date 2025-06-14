@@ -201,14 +201,10 @@ if (translateBtn && messageTextarea) {
         translateBtn.disabled = true;
         translateBtn.querySelector('span').textContent = 'Translating...';
         try {
-            // Deepl API Free endpoint
-            const res = await fetch('https://api-free.deepl.com/v2/translate', {
+            const res = await fetch('/.netlify/functions/translate-deepl', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': 'DeepL-Auth-Key 9af90e3c-0d8c-4b64-a474-d31e0ffbd546:fx'
-                },
-                body: 'text=' + encodeURIComponent(text) + '&source_lang=ID&target_lang=EN'
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
             });
             const data = await res.json();
             console.log('DeepL API response:', data);
