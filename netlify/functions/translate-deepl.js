@@ -14,7 +14,7 @@ exports.handler = async function(event) {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'DeepL-Auth-Key ' + apiKey
       },
-      body: 'text=' + encodeURIComponent(text) + '&source_lang=ID&target_lang=EN'
+      body: 'text=' + encodeURIComponent(text) + '&target_lang=EN'
     });
     const data = await res.json();
     return {

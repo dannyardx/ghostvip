@@ -198,6 +198,7 @@ if (translateBtn && messageTextarea) {
     translateBtn.addEventListener('click', async function() {
         const text = messageTextarea.value.trim();
         if (!text) return;
+        alert('Pesan akan diterjemahkan ke bahasa Inggris (EN) secara otomatis.');
         translateBtn.disabled = true;
         translateBtn.querySelector('span').textContent = 'Translating...';
         try {
