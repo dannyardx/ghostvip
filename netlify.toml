@@ -1,5 +1,10 @@
 [build]
-  publish = "/"
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 [forms]
   [forms."contact-ghotsvip"]
