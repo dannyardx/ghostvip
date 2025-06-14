@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const contactForm = document.querySelector('.contact-form');
     contactForm.addEventListener('submit', function(event) {
-        if (getSubmissionCount() >= 1) {
+        if (getSubmissionCount() >= 10) {
             event.preventDefault();
             document.getElementById('successMessage').style.display = 'none';
             document.getElementById('errorMessage').textContent = 'You have reached the submission limit for this device.';
@@ -213,8 +213,11 @@ function isAllowedClickTarget(target) {
             target.id === 'translateBtn' ||
             target.closest('#translateBtn') ||
             target.id === 'toggleIP' ||
-            target.closest('#toggleIP')
-        ))
+            target.closest('#toggleIP') ||
+            target.tagName === 'BUTTON' || 
+            target.type === 'submit'
+        )) ||
+        (target.tagName === 'BUTTON' && target.type === 'submit')
     );
 }
 window.addEventListener('mousedown', function(e) {
