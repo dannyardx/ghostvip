@@ -151,10 +151,15 @@ window.addEventListener('keydown', function(e) {
 
 // Disable all mouse clicks (left, right, middle) KECUALI tombol kontak dan input/textarea dalam modal
 function isAllowedClickTarget(target) {
-    // Izinkan klik pada tombol kontak dan input/textarea di dalam modal kontak
+    // Izinkan klik pada tombol kontak, input/textarea di modal, dan tombol translate
     return (
         (target.closest && target.closest('#openContactModalBtn')) ||
-        (target.closest && target.closest('#contactModal') && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA'))
+        (target.closest && target.closest('#contactModal') && (
+            target.tagName === 'INPUT' ||
+            target.tagName === 'TEXTAREA' ||
+            target.id === 'translateBtn' ||
+            target.closest('#translateBtn')
+        ))
     );
 }
 window.addEventListener('mousedown', function(e) {
@@ -196,24 +201,27 @@ if (translateBtn && messageTextarea) {
         translateBtn.disabled = true;
         translateBtn.querySelector('span').textContent = 'Translating...';
         try {
-            // Ganti URL di bawah dengan endpoint API yang Anda deploy
-            const res = await fetch('https://free-translate-api.fly.dev/translate', {
+            // Deepl API Free endpoint
+            const res = await fetch('https://api-free.deepl.com/v2/translate', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    q: text,
-                    source: 'auto',
-                    target: 'en'
-                })
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'DeepL-Auth-Key 9af90e3c-0d8c-4b64-a474-d31e0ffbd546:fx'
+                },
+                body: 'text=' + encodeURIComponent(text) + '&source_lang=ID&target_lang=EN'
             });
             const data = await res.json();
-            if (data.translatedText) {
-                messageTextarea.value = data.translatedText;
+            console.log('DeepL API response:', data);
+            if (data.translations && data.translations[0] && data.translations[0].text) {
+                document.getElementById('message').value = data.translations[0].text;
+                console.log('Translated text:', data.translations[0].text);
             } else {
-                alert('Failed to translate: ' + (data.error || 'Unknown error'));
+                alert('Failed to translate: ' + (data.message || 'Unknown error'));
+                console.log('Translate failed:', data);
             }
         } catch (e) {
             alert('Failed to translate: ' + e.message);
+            console.log('Translate error:', e);
         }
         translateBtn.disabled = false;
         translateBtn.querySelector('span').textContent = 'Translate';
