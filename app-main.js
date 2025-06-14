@@ -195,10 +195,11 @@ const translateBtn = document.getElementById('translateBtn');
 const messageTextarea = document.getElementById('message');
 // Fallback: jika API gagal, tampilkan hasil dummy agar user tahu tombol bekerja
 if (translateBtn && messageTextarea) {
+    translateBtn.querySelector('span').textContent = 'Translate English';
     translateBtn.addEventListener('click', async function() {
         const text = messageTextarea.value.trim();
         if (!text) return;
-        alert('Pesan akan diterjemahkan ke bahasa Inggris (EN) secara otomatis.');
+        // Hapus alert notifikasi
         translateBtn.disabled = true;
         translateBtn.querySelector('span').textContent = 'Translating...';
         try {
@@ -221,6 +222,6 @@ if (translateBtn && messageTextarea) {
             console.log('Translate error:', e);
         }
         translateBtn.disabled = false;
-        translateBtn.querySelector('span').textContent = 'Translate';
+        translateBtn.querySelector('span').textContent = 'Translate English';
     });
 }
