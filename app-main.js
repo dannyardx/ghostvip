@@ -100,10 +100,16 @@ document.addEventListener('DOMContentLoaded', async () => {    // === DOM ELEMEN
             // Close the modal and return to the main page
             document.getElementById('contactModal').classList.remove('active');
             document.querySelector('.main-container').classList.remove('blur');
+
+            // Show notification on the main page
+            showNotification('Message sent successfully!', 'success');
         })
         .catch(() => {
             document.getElementById('successMessage').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'block';
+
+            // Show notification on the main page
+            showNotification('Failed to send message. Please try again.', 'error');
         });
     });    // === INITIALIZE ===
     const init = async () => {
@@ -114,4 +120,17 @@ document.addEventListener('DOMContentLoaded', async () => {    // === DOM ELEMEN
     };
 
     init();
+
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.classList.add('fade-out');
+            notification.addEventListener('transitionend', () => notification.remove());
+        }, 3000);
+    }
 });
