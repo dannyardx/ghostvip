@@ -79,6 +79,32 @@ document.addEventListener('DOMContentLoaded', async () => {    // === DOM ELEMEN
         e.preventDefault();
         state.isIPHidden = !state.isIPHidden;
         updateIPDisplay();
+    });
+
+    elements.contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            form.reset(); // Reset the form fields
+
+            // Close the modal and return to the main page
+            document.getElementById('contactModal').classList.remove('active');
+            document.querySelector('.main-container').classList.remove('blur');
+        })
+        .catch(() => {
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+        });
     });    // === INITIALIZE ===
     const init = async () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
