@@ -59,6 +59,79 @@
             from { opacity:0; transform:translateY(32px); }
             to { opacity:1; transform:translateY(0); }
         }
+        @media (max-width: 600px) {
+            .quantv-center {
+                min-height: 100vh;
+                padding: 0 2vw;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            .file-card {
+                margin: 0 auto;
+                max-width: 100vw;
+                width: 100%;
+                padding: 14px 2vw;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+            }
+            .file-card > div {
+                align-items: center !important;
+                width: 100%;
+            }
+            .file-card h2, .file-card p, .file-card .version {
+                text-align: center !important;
+                width: 100%;
+            }
+            .file-card div[style*="display:flex;"][style*="gap:18px"] {
+                flex-direction: column !important;
+                gap: 8px !important;
+                width: 100%;
+                align-items: center !important;
+            }
+            #quantv-support-btn, #show-quantv-log, #show-readme-btn, #back-to-mainpage-btn {
+                font-size: 0.82rem !important;
+                padding: 6px 6px !important;
+                border-radius: 7px !important;
+                min-width: 90px !important;
+                max-width: 48vw !important;
+                box-sizing: border-box;
+                gap: 4px !important;
+            }
+            #quantv-support-btn svg, #show-quantv-log svg, #show-readme-btn svg, #back-to-mainpage-btn svg {
+                width: 14px !important;
+                height: 14px !important;
+                margin-right: 2px !important;
+            }
+            #quantv-support-btn {
+                left: 6px !important;
+                bottom: 8px !important;
+            }
+            #show-quantv-log {
+                right: 6px !important;
+                bottom: 8px !important;
+            }
+            #show-readme-btn {
+                left: 6px !important;
+                top: 8px !important;
+                bottom: auto !important;
+            }
+            #back-to-mainpage-btn {
+                right: 6px !important;
+                top: 8px !important;
+                bottom: auto !important;
+            }
+        }
+        @media (max-width: 400px) {
+            .file-card h2 {
+                font-size: 0.95rem !important;
+            }
+            .file-card .version, .file-card p {
+                font-size: 0.85rem !important;
+            }
+            #quantv-log-popup, #ghostvip-readme-card {
+                font-size: 0.85rem !important;
+            }
+        }
     </style>
 </head>
 <body style="background: var(--bg-color); color: var(--text-color); min-height: 100vh;">

@@ -781,172 +781,70 @@ body {
     }
 }
 
-/* Custom scrollbar for textarea */
-.form-group textarea::-webkit-scrollbar {
-    width: 8px;
-}
-
-.form-group textarea::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-}
-
-.form-group textarea::-webkit-scrollbar-thumb {
-    background: var(--grad-1);
-    border-radius: 4px;
-}
-
-.form-group textarea::-webkit-scrollbar-thumb:hover {
-    background: var(--grad-2);
-}
-
-/* Responsive Styles */
-@media (max-width: 1200px) {
-    .header-name {
-        font-size: 8rem;
+/* Tambahan responsif untuk semua tampilan */
+@media (max-width: 480px) {
+    .main-container {
+        padding: 10px;
     }
-}
-
-@media (max-width: 900px) {
-    .header-name {
-        font-size: 6rem;
+    .modal-container {
+        max-width: 98vw;
+        border-radius: 10px;
+    }
+    .modal-header {
+        padding: 18px 10px;
     }
     .modal-content {
-        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
     }
-}
-
-@media (max-width: 600px) {
     .header-name {
-        font-size: 4rem;
+        font-size: 2.1rem;
+        word-break: break-word;
     }
-    .ip-card {
-        padding: 15px;
-    }
-    .modal-content {
-        padding: 20px;
-    }
-}
-
-@media (max-width: 400px) {
-    .header-name {
-        font-size: 3rem;
-    }
-}
-
-/* Notification Styles */
-.notification {
-    position: fixed;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: white;
-    z-index: 3000;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    opacity: 1;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.notification.success {
-    background: linear-gradient(135deg, #4caf50, #388e3c);
-    border: 1px solid rgba(76, 175, 80, 0.5);
-}
-
-.notification.error {
-    background: linear-gradient(135deg, #f44336, #d32f2f);
-    border: 1px solid rgba(244, 67, 54, 0.5);
-}
-
-.notification svg {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-}
-
-.notification.show {
-    transform: translateX(-50%) translateY(120px);
-}
-
-.notification.fade-out {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-100px);
-}
-
-.devtools-warning {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 99999;
-    background: rgba(30, 30, 40, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: opacity 0.5s;
-    opacity: 1;
-    pointer-events: all;
-}
-.devtools-warning .devtools-title {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 18px;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 16px #ff512f99;
-}
-.devtools-warning .devtools-desc {
-    background: rgba(255,255,255,0.12);
-    border: 1.5px solid #ff512f;
-    border-radius: 18px;
-    padding: 24px 36px;
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-align: center;
-    box-shadow: 0 2px 32px 0 #ff512f33;
-    line-height: 1.7;
-    max-width: 500px;
-}
-
-#quantv-support-btn, #show-quantv-log {
-    background: var(--surface-color);
-    color: var(--grad-1);
-    border: 2px solid var(--grad-1);
-    border-radius: 50px;
-    padding: 10px 22px;
-    font-weight: 600;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
-    cursor: pointer;
-    transition: background .18s, color .18s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1.05rem;
-    text-decoration: none;
-}
-#quantv-support-btn:hover, #show-quantv-log:hover {
-    background: linear-gradient(135deg, var(--grad-1), var(--grad-2));
-    color: #fff;
-    border-color: var(--grad-2);
-}
-#quantv-support-btn svg, #show-quantv-log svg {
-    margin-right: 6px;
-    transition: transform 0.3s;
-}
-#quantv-support-btn:hover svg, #show-quantv-log:hover svg {
-    transform: translateX(3px);
-}
-@media (max-width: 600px) {
-    #quantv-support-btn, #show-quantv-log {
-        padding: 8px 14px;
+    .btn-shiny {
+        padding: 10px 10px;
         font-size: 0.95rem;
-        bottom: 18px !important;
-        left: 12px !important;
-        right: 12px !important;
     }
+    .ip-card, .ip-content {
+        padding: 10px;
+    }
+    .form-group input, .form-group textarea {
+        padding: 8px 8px;
+        font-size: 0.95rem;
+    }
+    .form-group label {
+        font-size: 0.85rem;
+    }
+    .notification {
+        font-size: 0.95rem;
+        padding: 8px 10px;
+    }
+}
+
+/* Pastikan gambar dan svg responsif */
+img, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Pastikan tombol tidak keluar layar */
+.contact-overlay-btn {
+    max-width: 90vw;
+    font-size: 0.95rem;
+    padding: 8px 8px;
+    right: 10px;
+    left: auto;
+    bottom: 10px;
+}
+
+/* Modal overlay agar tidak overflow */
+.modal-overlay {
+    overflow-y: auto;
+}
+
+/* Pastikan semua container tidak overflow */
+body, html {
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
