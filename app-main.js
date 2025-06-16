@@ -309,3 +309,26 @@ if (translateBtn && messageTextarea) {
         translateBtn.querySelector('span').textContent = 'Translate English';
     });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  function setupReportBtn() {
+    var reportBtn = document.getElementById('report-link-issue');
+    if(reportBtn) {
+      reportBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var modal = document.getElementById('contactModal');
+        if(modal) {
+          modal.style.display = 'flex';
+          setTimeout(function() {
+            modal.classList.add('active');
+            var msg = document.getElementById('message');
+            if(msg) msg.value = 'Report: Download link is not active (QuantV)';
+            modal.scrollIntoView({behavior:'smooth', block:'center'});
+          }, 10);
+        }
+      });
+    }
+  }
+  setupReportBtn();
+  // If content is dynamically loaded, you can call setupReportBtn() again after DOM changes
+});
